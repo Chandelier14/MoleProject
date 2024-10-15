@@ -1,0 +1,366 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mole in Chemistry</title>
+    <style>
+        /* General reset */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Arial', sans-serif;
+        }
+
+        /* Dark theme background and text colors */
+        body {
+            background-color: #181818;
+            color: #e0e0e0;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            min-height: 100vh;
+            animation: fadeIn 1s;
+        }
+
+        /* Title section */
+        .title {
+            background-color: #222;
+            color: #58a6d8;
+            padding: 40px;
+            border-radius: 10px;
+            box-shadow: 0 0 15px rgba(0, 0, 0, 0.7);
+            text-align: center;
+            width: 100%;
+            max-width: 800px;
+            margin-bottom: 20px;
+            animation: fadeIn 0.6s ease-in-out;
+        }
+
+        h1 {
+            font-size: 3em;
+            margin-bottom: 10px;
+            text-shadow: 0 0 5px rgba(255, 255, 255, 0.3);
+        }
+
+        /* Container for the bubbles */
+        .container {
+            width: 100%;
+            max-width: 1200px;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            gap: 20px;
+        }
+
+        /* Bubble styling */
+        .bubble {
+            background-color: #222;
+            border-radius: 10px;
+            padding: 20px;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
+            flex: 1 1 calc(48% - 10px);
+            transition: transform 0.3s, box-shadow 0.3s;
+            min-width: 300px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .bubble:hover {
+            transform: scale(1.05);
+            box-shadow: 0 0 30px rgba(0, 0, 0, 0.8);
+        }
+
+        h2 {
+            font-size: 1.8em;
+            color: #58a6d8;
+            margin-bottom: 10px;
+            text-align: center;
+        }
+
+        p {
+            font-size: 1.1em;
+            line-height: 1.5;
+            color: #d0d0d0;
+        }
+
+        /* Quiz box styling */
+        .quiz-box {
+            margin-top: 20px;
+            background-color: #222;
+            border-radius: 10px;
+            padding: 20px;
+            box-shadow: 0 0 15px rgba(0, 0, 0, 0.7);
+            width: 100%;
+            max-width: 600px;
+            animation: fadeIn 0.6s ease-in-out;
+        }
+
+        .quiz-question {
+            margin-bottom: 20px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .quiz-button {
+            background-color: #58a6d8;
+            color: #222;
+            border: none;
+            border-radius: 5px;
+            padding: 10px 15px;
+            cursor: pointer;
+            transition: background-color 0.3s, transform 0.3s;
+            font-size: 1.1em;
+            display: block;
+            margin: 5px 0;
+            position: relative;
+            z-index: 1; /* Ensure buttons are on top */
+        }
+
+        .quiz-button:hover {
+            background-color: #4a9cbd;
+            transform: scale(1.05);
+        }
+
+        @keyframes glow {
+            0% {
+                box-shadow: 0 0 5px #58a6d8;
+            }
+            50% {
+                box-shadow: 0 0 20px #58a6d8;
+            }
+            100% {
+                box-shadow: 0 0 5px #58a6d8;
+            }
+        }
+
+        .selected {
+            background-color: #007bff; /* Blue */
+            color: #fff;
+            border: 2px solid #007bff;
+            font-weight: bold;
+            animation: glow 1.5s infinite;
+        }
+
+        .wrong {
+            background-color: #d9534f;
+            color: #fff;
+            border: 2px solid #c9302c;
+        }
+
+        .correct {
+            background-color: #5cb85c;
+            color: #fff;
+            border: 2px solid #4cae4c;
+        }
+
+        /* Animations */
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Highlighted content box for supplies */
+        .supplies-used {
+            margin-top: 20px;
+            border: 2px dashed #58a6d8;
+            background-color: rgba(88, 166, 216, 0.1);
+            padding: 20px;
+            border-radius: 10px;
+            text-align: left;
+            width: 100%;
+            max-width: 1200px;
+            animation: fadeIn 0.6s ease-in-out;
+            display: flex;
+            flex-direction: column;
+            gap: 20px; /* Add space between inner boxes */
+        }
+
+        /* Inner box styling for each supply */
+        .inner-box {
+            background-color: #222;
+            border-radius: 10px;
+            padding: 15px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        /* Standout headings */
+        .standout {
+            font-weight: bold;
+            font-size: 1.2em;
+            color: #58a6d8;
+            margin-bottom: 10px;
+        }
+
+        /* Image styling */
+        .image-container {
+            flex: 0 0 150px; /* Fixed width for images */
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            overflow: hidden;
+        }
+
+        .image-container img {
+            max-width: 100%;
+            border-radius: 10px;
+            transition: transform 0.3s;
+        }
+
+        .image-container img:hover {
+            transform: scale(1.1);
+        }
+    </style>
+</head>
+<body>
+
+    <div class="title">
+        <h1>Mole Project</h1>
+        <p>Website</p>
+    </div>
+
+    <div class="container">
+        <div class="bubble">
+            <h2>What is a Mole?</h2>
+            <p>A mole is a unit in chemistry used to measure the amount of substance. Specifically, a mole represents 6.022 × 10<sup>23</sup> entities (atoms, molecules, etc.).</p>
+        </div>
+        <div class="bubble">
+            <h2>History of the Mole</h2>
+            <p>The groundwork for the concept of the mole was laid by Avogadro. Avogadro proposed that equal volumes of gases at the same temperature and pressure contain the same number of particles. Later on, Josef Loschmidt, an Austrian teacher, estimated the particles in a mole and named it after Avogadro.</p>
+        </div>
+        <div class="bubble">
+            <h2>Why is it Important?</h2>
+            <p>The mole allows chemists to count particles by weighing them. It is crucial for stoichiometry in chemical reactions.</p>
+        </div>
+        <div class="bubble">
+            <h2>Applications</h2>
+            <p>Moles are used in various fields including chemistry, biology, and pharmacology to quantify substances in reactions and processes.</p>
+        </div>
+    </div>
+
+    <div class="supplies-used">
+        <h2>Supplies Used</h2>
+
+        <div class="inner-box">
+            <div class="image-container">
+                <img src="images/1.png" alt="Can of Coke">
+            </div>
+            <div class="supplies-paragraph">
+                <div class="standout">Coke:</div>
+                <p>To find how many atoms are in a can of Coke, we know that one can contains around 355 mL of fluid, which is equal to about 355 grams of fluid. Since Coke is 99% water, we will simplify it as H<sub>2</sub>O. The molar mass of water, which is the mass in grams of one mole of H<sub>2</sub>O, is approximately 18.015 g/mol. The molar mass can be found by adding the atomic masses of the elements together. Next, we divide the weight of the Coke, which is 355 grams, by the molar mass (18.015 g/mol), giving us approximately 19.7 moles. Then, we multiply 19.7 by Avogadro's number (6.022 × 10<sup>23</sup>), giving us approximately 1.18 × 10<sup>25</sup> molecules in a can of Coke. Finally, to find the total number of atoms, we multiply by 3 (since there are 3 atoms in H<sub>2</sub>O), resulting in approximately 3.54 × 10<sup>25</sup> atoms in a can of Coke.</p>
+            </div>
+        </div>
+
+        <div class="inner-box">
+            <div class="image-container">
+                <img src="images/2.png" alt="Bottle of Water">
+            </div>
+            <div class="supplies-paragraph">
+                <div class="standout">Water Bottle:</div>
+                <p>Next, let's find how many atoms are in a bottle of water. A bottle of water is approximately 500 mL, which is about 500 grams. Since it's mostly water, we will use the same approach as before. The molar mass is still approximately 18.015 g/mol. Dividing the weight of the bottle by the molar mass gives us about 27.8 moles. Multiplying by Avogadro's number results in approximately 1.67 × 10<sup>25</sup> molecules of water in a bottle. There are about 5.01 × 10<sup>25</sup> atoms in a bottle of water.</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="quiz-box">
+        <h2>Quiz Yourself</h2>
+        <form id="quiz-form">
+            <div class="quiz-question" id="question1">
+                <p>1. What does a mole represent?</p>
+                <button type="button" class="quiz-button" onclick="selectAnswer('q1', 'A')">A. 6</button>
+                <button type="button" class="quiz-button" onclick="selectAnswer('q1', 'B')">B. 6.022 × 10<sup>23</sup></button>
+                <button type="button" class="quiz-button" onclick="selectAnswer('q1', 'C')">C. idk</button>
+                <button type="button" class="quiz-button" onclick="selectAnswer('q1', 'D')">D. Grimace Shake</button>
+            </div>
+
+            <div class="quiz-question" id="question2">
+                <p>2. Who pioneered the discovery of the mole?</p>
+                <button type="button" class="quiz-button" onclick="selectAnswer('q2', 'A')">A. Avogadro</button>
+                <button type="button" class="quiz-button" onclick="selectAnswer('q2', 'B')">B. Albert Einstein</button>
+                <button type="button" onclick="selectAnswer('q2', 'C')" class="quiz-button">C. Diddy</button>
+                <button type="button" class="quiz-button" onclick="selectAnswer('q2', 'D')">D. Yekai</button>
+            </div>
+
+            <div class="quiz-question" id="question3">
+                <p>3. Will you give me 100 on this project?</p>
+                <button type="button" class="quiz-button" onclick="selectAnswer('q3', 'A')">A. Yes</button>
+                <button type="button" class="quiz-button" onclick="selectAnswer('q3', 'B')">B. No</button>
+            </div>
+
+            <div class="navigation-button" style="text-align: center;">
+                <button type="button" class="quiz-button" id="submit-button" onclick="checkAnswers()">Submit</button>
+            </div>
+        </form>
+        <div id="quiz-result" style="margin-top: 20px;"></div>
+    </div>
+
+    <script>
+        const answers = {
+            q1: "B",
+            q2: "A",
+            q3: "A"
+        };
+
+        let userAnswers = {};
+
+        function selectAnswer(question, answer) {
+            const buttons = document.querySelectorAll(`#${question} .quiz-button`);
+            userAnswers[question] = answer; // Store the user's answer
+
+            // Highlight the selected button with a distinct style
+            buttons.forEach(button => {
+                button.classList.remove('selected');
+                button.style.animation = 'none'; // Reset animation
+            });
+
+            const selectedButton = Array.from(buttons).find(button => button.textContent.startsWith(answer));
+            if (selectedButton) {
+                selectedButton.classList.add('selected');
+                selectedButton.style.animation = 'glow 1.5s infinite';
+            }
+        }
+
+        function checkAnswers() {
+            let score = 0;
+            const result = document.getElementById('quiz-result');
+            result.innerHTML = ''; // Clear previous result
+
+            for (let question in answers) {
+                const userAnswer = userAnswers[question];
+                const isCorrect = userAnswer === answers[question];
+                score += isCorrect ? 1 : 0;
+
+                // Show correct answer
+                const correctAnswerText = isCorrect ? 'Correct!' : `Incorrect. The correct answer is ${answers[question]}.`;
+                result.innerHTML += `<p>${question}: ${correctAnswerText}</p>`;
+
+                // Highlight the correct and wrong answers
+                const buttons = document.querySelectorAll(`#${question} .quiz-button`);
+                buttons.forEach(button => {
+                    button.classList.remove('selected');
+                    button.style.animation = 'none';
+                    if (button.textContent.startsWith(answers[question])) {
+                        button.classList.add('correct');
+                    } else if (userAnswer && button.textContent.startsWith(userAnswer)) {
+                        button.classList.add('wrong');
+                    }
+                });
+            }
+
+            result.innerHTML += `<p>Your total score: ${score} out of ${Object.keys(answers).length}</p>`;
+        }
+    </script>
+
+</body>
+</html>
