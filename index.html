@@ -221,6 +221,200 @@
         .image-container img:hover {
             transform: scale(1.1);
         }
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Arial', sans-serif;
+        }
+
+        /* Dark theme background and text colors */
+        body {
+            background-color: #181818;
+            color: #e0e0e0;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            min-height: 100vh;
+        }
+
+        /* Title section */
+        .title {
+            background-color: #222;
+            color: #58a6d8;
+            padding: 40px;
+            border-radius: 10px;
+            box-shadow: 0 0 15px rgba(0, 0, 0, 0.7);
+            text-align: center;
+            width: 100%;
+            max-width: 800px;
+            margin-bottom: 20px;
+            animation: fadeIn 0.6s ease-in-out;
+        }
+
+        h1 {
+            font-size: 3em;
+            margin-bottom: 10px;
+            text-shadow: 0 0 5px rgba(255, 255, 255, 0.3);
+        }
+
+        /* Container for the bubbles */
+        .container {
+            width: 100%;
+            max-width: 1200px;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            gap: 20px;
+        }
+
+        /* Bubble styling */
+        .bubble {
+            background-color: #222;
+            border-radius: 10px;
+            padding: 20px;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
+            flex: 1 1 calc(48% - 10px);
+            transition: transform 0.3s, box-shadow 0.3s;
+            min-width: 300px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .bubble:hover {
+            transform: scale(1.05);
+            box-shadow: 0 0 30px rgba(0, 0, 0, 0.8);
+        }
+
+        h2 {
+            font-size: 1.8em;
+            color: #58a6d8;
+            margin-bottom: 10px;
+            text-align: center;
+        }
+
+        p {
+            font-size: 1.1em;
+            line-height: 1.5;
+            color: #d0d0d0;
+        }
+
+        /* Timeline design */
+        .timeline {
+            background-color: #222;
+            border-radius: 10px;
+            padding: 20px;
+            margin-top: 20px;
+            text-align: center;
+            width: 100%;
+            max-width: 1200px;
+            box-shadow: 0 0 15px rgba(0, 0, 0, 0.7);
+            animation: fadeIn 0.6s ease-in-out;
+        }
+
+        .timeline-title {
+            font-size: 2em;
+            color: #58a6d8;
+            margin-bottom: 20px;
+        }
+
+        .timeline-content {
+            display: flex;
+            justify-content: space-around;
+            flex-wrap: wrap;
+            position: relative;
+            padding: 0 10px;
+        }
+
+        .timeline-item {
+            position: relative;
+            margin: 10px;
+        }
+
+        .timeline-button {
+            background-color: #58a6d8;
+            color: #222;
+            border: none;
+            border-radius: 5px;
+            padding: 10px 15px;
+            cursor: pointer;
+            transition: background-color 0.3s, transform 0.3s;
+            font-size: 1.1em;
+        }
+
+        .timeline-button:hover {
+            background-color: #4a9cbd;
+            transform: scale(1.1);
+        }
+
+        .info {
+            visibility: hidden;
+            opacity: 0;
+            position: absolute;
+            bottom: 100%;
+            left: 50%;
+            transform: translateX(-50%);
+            background: rgba(34, 34, 34, 0.95);
+            color: #e0e0e0;
+            padding: 10px;
+            border-radius: 6px;
+            z-index: 10;
+            width: 220px;
+            text-align: center;
+            font-size: 0.9em;
+            box-shadow: 0 0 15px rgba(0, 0, 0, 0.5);
+            transition: opacity 0.3s, visibility 0.3s;
+            margin-bottom: 10px;
+        }
+
+        .timeline-item:hover .info {
+            visibility: visible;
+            opacity: 1;
+        }
+
+        /* Highlighted content box for supplies */
+        .supplies-used {
+            margin-top: 20px;
+            border: 2px dashed #58a6d8;
+            background-color: rgba(88, 166, 216, 0.1);
+            padding: 20px;
+            border-radius: 10px;
+            text-align: left;
+            width: 100%;
+            max-width: 1200px;
+            animation: fadeIn 0.6s ease-in-out;
+        }
+
+        /* Animations */
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Responsive adjustments */
+        @media (max-width: 768px) {
+            .bubble {
+                width: 100%;
+            }
+            .timeline-content {
+                flex-direction: column;
+                align-items: center;
+            }
+            .timeline-item {
+                margin: 10px 0;
+            }
+            .info {
+                width: 200px;
+                font-size: 0.8em;
+            }
+        }
     </style>
 </head>
 <body>
@@ -246,6 +440,43 @@
         <div class="bubble">
             <h2>Applications</h2>
             <p>Moles are used in various fields including chemistry, biology, and pharmacology to quantify substances in reactions and processes.</p>
+        </div>
+    </div>
+    <div class="timeline">
+        <h2 class="timeline-title">Timeline</h2>
+        <div class="timeline-content">
+            <div class="timeline-item">
+                <button class="timeline-button">1811</button>
+                <div class="info">Amedeo Avogadro suggests that equal volumes of different gases at the same temperature and pressure contain the same number of particles.</div>
+            </div>
+            <div class="timeline-item">
+                <button class="timeline-button">1865</button>
+                <div class="info">Josef Loschmidt estimates the number of particles in one cubic centimeter of gas (Loschmidt constant).</div>
+            </div>
+            <div class="timeline-item">
+                <button class="timeline-button">1909</button>
+                <div class="info">Jean Baptiste Perrin coins the term "Avogadro's number" and estimates its value based on Brownian motion studies.</div>
+            </div>
+            <div class="timeline-item">
+                <button class="timeline-button">1909-1913</button>
+                <div class="info">Robert Millikan conducts his oil drop experiments to measure the charge on an electron, leading to a more accurate calculation of Avogadro's number.</div>
+            </div>
+            <div class="timeline-item">
+                <button class="timeline-button">2011</button>
+                <div class="info">The International Avogadro Project uses X-ray crystallography and a highly pure silicon sphere to determine Avogadro's constant with high accuracy.</div>
+            </div>
+            <div class="timeline-item">
+                <button class="timeline-button">2018</button>
+                <div class="info">The General Conference on Weights and Measures redefines the mole using a fixed value for Avogadro's constant.</div>
+            </div>
+            <div class="timeline-item">
+                <button class="timeline-button">2019</button>
+                <div class="info">The new definition of the mole comes into effect, fixing Avogadro's number at exactly 6.02214076 × 10<sup>23</sup> mol<sup>−1</sup>.</div>
+            </div>
+            <div class="timeline-item">
+                <button class="timeline-button">2024</button>
+                <div class="info">This defined value of Avogadro's constant (6.02214076 × 10<sup>23</sup> mol<sup>−1</sup>) remains the accepted value used in scientific calculations worldwide.</div>
+            </div>
         </div>
     </div>
 
